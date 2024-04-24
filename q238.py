@@ -3,28 +3,17 @@ def productExceptSelf(nums):
     :type nums: List[int]
     :rtype: List[int]
     """
-    # sum of everything to the left
-    left = []
+
+    ans = [0 for i in nums]
+    lsum = 1
     for i in range(len(nums)):
-        val = 1
-        s = [x for x in nums[:i]]
+        ans[i] = lsum
+        lsum *= nums[i]
 
-        for j in s:
-            val *= j
-        left.append(val)
-
-    right = []
-    for i in range(len(nums)):
-        val = 1
-        s = [x for x in nums[i + 1:]]
-
-        for j in s:
-            val *= j
-        right.append(val)
-
-    ans = []
-    for i in range(len(nums)):
-        ans.append(left[i] * right[i])
+    rsum = 1
+    for i in range(len(nums) - 1, -1, -1):
+        ans[i] *= rsum
+        rsum *= nums[i]
 
     return ans
 
